@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — JobMatch Pro</title>
+  <style>
+    :root {
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --primary: #6366F1;
+      --accent: #10B981;
+      --border: #334155;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 0;
+      color: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+    p, li {
+      color: var(--text-muted);
+      font-size: 14.5px;
+    }
+    ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    .highlight-box {
+      background: rgba(99, 102, 241, 0.1);
+      border-left: 4px solid var(--primary);
+      padding: 14px 18px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    .highlight-box p {
+      color: var(--text);
+      font-weight: 500;
+      margin: 0;
+    }
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Privacy Policy for JobMatch Pro</h1>
+    <p><strong>Effective Date:</strong> November 1, 2026<br>
+    <strong>Extension Name:</strong> JobMatch Pro - ATS Resume Matcher</p>
+
+    <div class="highlight-box">
+      <p>🛡️ <strong>Our Privacy Pledge:</strong> JobMatch Pro is built with a local-first architecture. Your resume content, job posting text, and analysis results stay strictly on your local computer. We do not operate remote user tracking servers, and we never sell, share, or monetize your personal data.</p>
+    </div>
+
+    <h2>1. Information We Process</h2>
+    <p>JobMatch Pro operates primarily as a client-side micro-utility within Google Chrome:</p>
+    <ul>
+      <li><strong>Resume Profile Text:</strong> When you enter or paste your resume, it is stored exclusively in your browser's local sandbox storage (<code>chrome.storage.local</code>). This data never leaves your device.</li>
+      <li><strong>Job Posting Information:</strong> When you click "Scan & Match", the extension's content script inspects the active browser tab to extract job titles, company names, and job descriptions for immediate in-memory evaluation. No job descriptions or browsing histories are logged, transmitted, or stored on external servers.</li>
+      <li><strong>License Verification Data:</strong> If you activate a Pro license key, the key and an anonymous product identifier are sent via secure HTTPS to our merchant-of-record gateway solely to verify purchase authenticity and entitlement.</li>
+      <li><strong>Optional AI API Keys:</strong> If you choose to configure a personal Gemini or OpenAI API key in extension settings, the key is saved locally in <code>chrome.storage.local</code> and used exclusively to communicate directly between your browser and the respective AI provider's official API.</li>
+    </ul>
+
+    <h2>2. Data We Do NOT Collect</h2>
+    <ul>
+      <li>We do NOT collect personally identifiable information (PII) like your home address, social security number, or phone number.</li>
+      <li>We do NOT track your browsing history across other tabs or websites.</li>
+      <li>We do NOT use tracking cookies, tracking pixels, or third-party analytics SDKs.</li>
+      <li>We do NOT sell, rent, license, or disclose user data to advertisers, data brokers, or any third parties.</li>
+    </ul>
+
+    <h2>3. Chrome Extension Permissions Justification</h2>
+    <p>JobMatch Pro requests only the minimal necessary permissions required to fulfill its single core utility:</p>
+    <ul>
+      <li><code>storage</code>: Required to store your master resume text, scan counter, and license activation state locally on your device.</li>
+      <li><code>activeTab</code> & <code>scripting</code>: Required only to read the job description on the specific tab you choose to scan when you click the extension.</li>
+      <li><code>contextMenus</code>: Allows you to right-click highlighted text on any webpage to scan selected requirements.</li>
+      <li><code>host_permissions</code>: Limited strictly to major job portals (LinkedIn, Indeed, Greenhouse) to detect relevant job posting containers.</li>
+    </ul>
+
+    <h2>4. Data Retention and Deletion</h2>
+    <p>Because all user data resides locally in your browser's <code>chrome.storage.local</code>, you maintain absolute control over your information at all times:</p>
+    <ul>
+      <li>You can delete all stored resume text and scan data instantly by clicking the <strong>"Clear All Extension Data"</strong> button in the extension's Settings tab.</li>
+      <li>Uninstalling the extension from <code>chrome://extensions</code> immediately removes all associated data from your device.</li>
+    </ul>
+
+    <h2>5. Compliance with Laws (GDPR & CCPA)</h2>
+    <p>JobMatch Pro adheres strictly to the principles of data minimization and privacy-by-design under the General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA). We collect only what is strictly necessary to perform ATS matching calculations locally.</p>
+
+    <h2>6. Contact Us</h2>
+    <p>If you have any questions or concerns regarding this Privacy Policy, please contact our support team at:<br>
+    <strong>Email:</strong> support@jobmatchpro.app (or your developer email)</p>
+
+    <div class="footer">
+      <span>© 2026 JobMatch Pro. All rights reserved.</span>
+      <span>
+        <a href="terms-of-service.html">Terms of Service</a> &bull; 
+        <a href="refund-policy.html">Refund Policy</a>
+      </span>
+    </div>
+  </div>
+</body>
+</html>

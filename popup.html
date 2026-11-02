@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobMatch Pro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">JM</div>
+      <div class="brand-name">JobMatch <span>Pro</span></div>
+    </div>
+    <div class="header-actions">
+      <div id="header-pro-pill" class="pro-badge free" title="Click to view upgrade & license">FREE: 3 left</div>
+      <button id="nav-settings-btn" class="icon-btn" title="Settings & License">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- View Switcher Tabs -->
+  <nav class="tabs-nav">
+    <button class="tab-btn active" data-tab="tab-scan">Scanner</button>
+    <button class="tab-btn" data-tab="tab-resume">My Resume</button>
+    <button class="tab-btn" data-tab="tab-find-jobs">Find Jobs</button>
+    <button class="tab-btn" id="nav-tab-pro" data-tab="tab-pro">Upgrade / Pro</button>
+    <button class="tab-btn" data-tab="tab-settings">Settings</button>
+  </nav>
+
+  <!-- Views Body -->
+  <main class="views-container">
+
+    <!-- VIEW 1: MATCH SCANNER (MAIN DASHBOARD) -->
+    <section id="tab-scan" class="view-panel active">
+      
+      <!-- Resume Missing Warning Banner (shown if no resume saved) -->
+      <div id="no-resume-alert" class="card" style="display: none; border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.08);">
+        <div style="display: flex; gap: 8px; align-items: flex-start;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <div>
+            <div style="font-size: 12px; font-weight: 700; color: #F59E0B;">Resume not found</div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin: 3px 0 6px;">Add your resume text to compare against job postings.</div>
+            <button id="alert-add-resume-btn" class="btn btn-secondary btn-sm" style="width: auto;">Open Resume Tab</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Page Job Detection Card -->
+      <div class="job-detector-card">
+        <div class="job-icon-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+        </div>
+        <div class="job-info">
+          <div id="detected-job-title" class="job-title-display">Detecting job description...</div>
+          <div id="detected-job-company" class="job-company-display">Checking active browser tab</div>
+        </div>
+        <button id="refresh-job-btn" class="icon-btn" title="Re-detect from active tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Collapsible Manual Input Fallback -->
+      <div>
+        <button id="toggle-manual-job-btn" class="collapsible-trigger">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span>Or paste job text manually / from clipboard</span>
+        </button>
+        <div id="manual-job-container" class="collapsible-content">
+          <textarea id="manual-job-input" class="input-field" rows="3" placeholder="Paste full job description or requirements here..."></textarea>
+          <div style="margin-top: 4px; display: flex; justify-content: flex-end;">
+            <button id="use-manual-job-btn" class="btn btn-secondary btn-sm" style="width: auto;">Use This Text</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Action Scan Button -->
+      <button id="scan-now-btn" class="btn btn-primary" style="margin-bottom: 8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span id="scan-btn-label">Scan & Match Resume</span>
+      </button>
+
+      <!-- Find Similar Jobs Quick Button (Gated: 1 Free search for free users, unlimited for Pro) -->
+      <button id="find-similar-jobs-main-btn" class="btn btn-secondary" style="margin-bottom: 14px; justify-content: space-between; border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.12); color: #C7D2FE;">
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <strong id="find-similar-btn-text">Find Similar Jobs (Nearby &amp; Remote)</strong>
+        </span>
+        <span id="find-similar-quota-badge" style="font-size: 9.5px; background: rgba(99, 102, 241, 0.25); color: #A5B4FC; padding: 2px 7px; border-radius: 9999px; font-weight: 700;">1 FREE SEARCH</span>
+      </button>
+
+      <!-- RESULTS SECTION (Hidden until scanned) -->
+      <div id="scan-results-container" style="display: none;">
+        
+        <!-- Score Radial Card -->
+        <div class="score-section">
+          <div class="score-radial">
+            <svg viewBox="0 0 80 80">
+              <circle class="circle-bg" cx="40" cy="40" r="34"></circle>
+              <circle id="score-circle-progress" class="circle-progress" cx="40" cy="40" r="34"></circle>
+            </svg>
+            <div class="score-radial-text">
+              <span id="score-percentage-text" class="score-number">0%</span>
+              <span class="score-unit">MATCH</span>
+            </div>
+          </div>
+          <div class="score-details">
+            <div id="score-status-badge" class="score-status-badge pill-matched">Good Match</div>
+            <div id="score-summary-desc" class="score-summary-text">Your resume matches 8 core requirements. Adding 3 missing keywords will significantly boost ATS pass rate.</div>
+          </div>
+        </div>
+
+        <!-- Missing Keywords Group -->
+        <div class="keywords-group">
+          <div class="section-subhead">
+            <span style="color: #F87171;">Missing Keywords</span>
+            <span id="missing-count-badge" style="font-size: 10px; color: var(--text-muted);">0 missing</span>
+          </div>
+          <div style="font-size: 9.5px; color: var(--text-muted); margin-bottom: 6px;">💡 Click keyword to auto-insert into resume &bull; 📋 to copy</div>
+          <div id="missing-keywords-list" class="pills-container">
+            <!-- Dynamically populated missing badges -->
+          </div>
+        </div>
+
+        <!-- Matched Keywords Group -->
+        <div class="keywords-group">
+          <div class="section-subhead">
+            <span style="color: #34D399;">Matched Keywords</span>
+            <span id="matched-count-badge" style="font-size: 10px; color: var(--text-muted);">0 found</span>
+          </div>
+          <div id="matched-keywords-list" class="pills-container">
+            <!-- Dynamically populated matched badges -->
+          </div>
+        </div>
+
+        <!-- Suggested Tailored Bullet Points -->
+        <div class="keywords-group">
+          <div class="section-subhead">
+            <span style="color: var(--primary);">Suggested Bullets to Add</span>
+            <span style="font-size: 9px; color: var(--text-muted);">INSERT OR COPY FOR AI</span>
+          </div>
+          <div id="suggested-bullets-list">
+            <!-- Dynamically populated bullet cards -->
+          </div>
+        </div>
+
+        <!-- Live Resume Modification Notice -->
+        <div id="resume-updated-banner" class="card" style="display: none; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.4); padding: 9px 12px; margin-top: 6px;">
+          <div style="font-size: 11.5px; color: #34D399; display: flex; align-items: center; justify-content: space-between;">
+            <span>✓ Resume updated with new keywords!</span>
+            <button id="view-updated-resume-btn" class="btn btn-outline btn-sm" style="width: auto; padding: 2px 8px; font-size: 10px; border-color: #34D399; color: #34D399;">View Resume &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Bottom Action Row: Copy for AI & Export ATS Report -->
+        <div class="action-row" style="margin-top: 10px;">
+          <button id="copy-ai-prompt-btn" class="btn btn-primary btn-sm" style="flex: 1.1; font-size: 11px;">
+            🤖 Copy AI Prompt (ChatGPT / Claude)
+          </button>
+          <button id="export-report-btn" class="btn btn-outline btn-sm" style="flex: 0.9; font-size: 11px;">
+            📋 Copy ATS Report
+          </button>
+        </div>
+
+        <!-- Similar Matching Jobs Launcher -->
+        <div class="card" style="margin-top: 12px; background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.3);">
+          <div style="font-size: 11px; font-weight: 700; color: #A5B4FC; margin-bottom: 3px;">FIND SIMILAR OPEN ROLES</div>
+          <div style="font-size: 10.5px; color: var(--text-secondary); margin-bottom: 8px;">Explore 100+ matching openings requiring these exact skills:</div>
+          <div style="display: flex; gap: 5px;">
+            <button id="quick-search-linkedin-btn" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 10px; padding: 5px 3px;">LinkedIn &rarr;</button>
+            <button id="quick-search-indeed-btn" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 10px; padding: 5px 3px;">Indeed &rarr;</button>
+            <button id="quick-search-google-btn" class="btn btn-secondary btn-sm" style="flex: 1; font-size: 10px; padding: 5px 3px;">Google Jobs &rarr;</button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- VIEW 2: RESUME PROFILE / SETUP -->
+    <section id="tab-resume" class="view-panel">
+      <h2>Master Resume Profile</h2>
+      <p class="subtitle">Paste your raw resume text below. JobMatch Pro compares this profile against job descriptions to compute ATS match scores.</p>
+
+      <div class="form-group">
+        <label class="form-label" for="resume-input">Resume Content (Experience, Skills, Education)</label>
+        <textarea id="resume-input" class="input-field" rows="12" placeholder="Paste your resume text here (e.g. Work Experience, Technologies: React, TypeScript, Node.js, AWS, Docker, PostgreSQL, CI/CD, Agile...)"></textarea>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+        <button id="save-resume-btn" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          Save Resume
+        </button>
+        <button id="load-sample-resume-btn" class="btn btn-secondary" style="width: auto;" title="Load sample Full Stack engineer profile">
+          Load Sample
+        </button>
+      </div>
+
+      <div class="card" style="margin-top: 8px;">
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">DETECTED RESUME SKILLS</div>
+        <div id="resume-skills-count" style="font-size: 12px; color: var(--text-primary);">0 skills identified in your saved resume.</div>
+      </div>
+    </section>
+
+    <!-- VIEW: FIND MATCHING JOBS -->
+    <section id="tab-find-jobs" class="view-panel">
+      <h2>Find Matching Jobs</h2>
+      <p class="subtitle">Search live job boards for roles matching your technical profile and desired location.</p>
+
+      <!-- Quota Status Banner -->
+      <div id="job-search-quota-banner" class="card" style="margin-bottom: 12px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.08);">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #818CF8;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span id="job-search-quota-text" style="font-size: 11px; font-weight: 600; color: #A5B4FC;">1 Free Search available</span>
+        </div>
+        <button id="job-search-upgrade-btn" class="btn btn-secondary btn-sm" style="width: auto; padding: 2px 8px; font-size: 10px; display: none;">Upgrade to Pro</button>
+      </div>
+
+      <div class="card">
+        <div class="form-group">
+          <label class="form-label" for="job-search-role">Target Role / Job Title</label>
+          <input type="text" id="job-search-role" class="input-field" placeholder="e.g. Senior Full Stack Engineer" style="padding: 8px 10px;">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="job-search-location">Location / Preference</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="job-search-location" class="input-field" placeholder="e.g. Remote, or your city" style="padding: 8px 10px; flex: 1;">
+            <button id="btn-loc-remote" class="btn btn-outline btn-sm" style="width: auto; font-size: 10px; padding: 0 8px;">Remote</button>
+            <button id="btn-loc-nearby" class="btn btn-outline btn-sm" style="width: auto; font-size: 10px; padding: 0 8px;">Nearby</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 6px;">
+          <label class="form-label">Include Key Skills in Search</label>
+          <div id="job-search-skills-chips" class="pills-container" style="min-height: 24px;">
+            <!-- Populated with user's top resume skills -->
+          </div>
+        </div>
+      </div>
+
+      <!-- One-Click Launch Portals -->
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+        <button id="launch-linkedin-jobs" class="btn btn-primary" style="justify-content: space-between; padding: 9px 12px; font-size: 11.5px;">
+          <span>💼 Search on LinkedIn Jobs (Past Week)</span>
+          <span>&rarr;</span>
+        </button>
+
+        <button id="launch-indeed-jobs" class="btn btn-secondary" style="justify-content: space-between; padding: 9px 12px; font-size: 11.5px;">
+          <span>🏢 Search on Indeed (Target Skills)</span>
+          <span>&rarr;</span>
+        </button>
+
+        <button id="launch-google-jobs" class="btn btn-secondary" style="justify-content: space-between; padding: 9px 12px; font-size: 11.5px;">
+          <span>📍 Search Google Jobs (Local Openings Nearby)</span>
+          <span>&rarr;</span>
+        </button>
+
+        <button id="launch-remote-jobs" class="btn btn-outline" style="justify-content: space-between; padding: 9px 12px; font-size: 11.5px;">
+          <span>🚀 Search Verified Remote Tech Roles (Wellfound)</span>
+          <span>&rarr;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- VIEW 3: PRO PAYWALL & LICENSE ACTIVATION -->
+    <section id="tab-pro" class="view-panel">
+      <div class="pro-paywall-card">
+        <div class="pro-icon-large">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="pro-title">Unlock JobMatch Pro</div>
+        <p class="subtitle" style="margin-bottom: 4px;">Pass every ATS filter and optimize applications 10x faster.</p>
+        
+        <div class="pro-price-tag">$14 <span style="font-size: 12px; color: var(--text-secondary); font-weight: 500;">one-time lifetime</span></div>
+        <div class="pro-price-sub">No recurring subscriptions. Lifetime updates included.</div>
+
+        <ul class="pro-features-list">
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>Unlimited Job Scans</strong> on LinkedIn, Indeed & Greenhouse</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>Unlimited Similar Job Searches</strong> across LinkedIn, Indeed & Google</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>Full Missing ATS Keywords Checklist</strong> with 1-click insert</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>AI-Formulated Bullet Points</strong> (Google X-Y-Z formula)</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span><strong>1-Click ATS Match Export</strong> for cover letters & notes</span>
+          </li>
+        </ul>
+
+        <a id="buy-license-btn" href="https://checkout.example.com" target="_blank" class="btn btn-primary" style="margin-bottom: 12px;">
+          Upgrade to Lifetime Pro ($14)
+        </a>
+
+        <!-- Activation Box -->
+        <div class="activation-box">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">Already have a license key?</div>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="license-key-input" class="input-field" placeholder="PRO-XXXX-XXXX" style="padding: 7px 10px; font-size: 11px; text-transform: uppercase;">
+            <button id="activate-key-btn" class="btn btn-secondary btn-sm" style="width: auto; padding: 0 12px;">Activate</button>
+          </div>
+          <div id="license-activation-status" style="font-size: 10.5px; margin-top: 6px; display: none;"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 4: SETTINGS & OPTIONAL AI KEY -->
+    <section id="tab-settings" class="view-panel">
+      <h2>Extension Settings</h2>
+      <p class="subtitle">Manage license details, optional AI providers, and saved storage.</p>
+
+      <div class="card">
+        <div class="form-label">License Status</div>
+        <div id="settings-license-status" style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Free Version (3 Free Scans)</div>
+        <div id="settings-key-display" style="font-size: 11px; color: var(--text-muted); font-family: monospace; margin-bottom: 8px;">No key entered</div>
+        
+        <!-- Only shown for Pro active customers: Change License Key -->
+        <div id="pro-change-key-section" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color);">
+          <div style="font-size: 11px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Change License Key</div>
+          <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+            <input type="text" id="settings-change-key-input" class="input-field" placeholder="PRO-XXXX-XXXX" style="padding: 7px 10px; font-size: 11px; text-transform: uppercase;">
+            <button id="settings-update-key-btn" class="btn btn-secondary btn-sm" style="width: auto; padding: 0 12px; white-space: nowrap;">Update Key</button>
+          </div>
+          <div id="settings-change-key-status" style="font-size: 10.5px; display: none;"></div>
+        </div>
+
+        <button id="deactivate-key-btn" class="btn btn-outline btn-sm" style="display: none; width: auto; font-size: 11px; margin-top: 8px;">
+          Remove License
+        </button>
+
+        <!-- Only shown for free customers: Quick upgrade link -->
+        <button id="settings-upgrade-link-btn" class="btn btn-primary btn-sm" style="display: none; width: auto; font-size: 11px; margin-top: 6px;">
+          Upgrade to Lifetime Pro ($14) &rarr;
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="form-label">Optional AI Key (Gemini or OpenAI)</div>
+        <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 6px;">Leave blank to use built-in smart algorithmic generator, or enter your API key for live LLM tailored bullets.</div>
+        <input type="password" id="custom-ai-key-input" class="input-field" placeholder="AIzaSy... or sk-..." style="margin-bottom: 8px;">
+        <button id="save-ai-key-btn" class="btn btn-secondary btn-sm" style="width: auto;">Save API Key</button>
+      </div>
+
+      <div class="card" style="border-color: rgba(239, 68, 68, 0.3);">
+        <div class="form-label" style="color: #EF4444;">Storage Management</div>
+        <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">Reset all saved resume text, scans count, and cache.</div>
+        <button id="clear-data-btn" class="btn btn-outline btn-sm" style="color: #EF4444; border-color: rgba(239, 68, 68, 0.4); width: auto;">
+          Clear All Extension Data
+        </button>
+      </div>
+
+      <!-- Legal & Compliance Links -->
+      <div style="text-align: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-color); font-size: 10.5px; color: var(--text-muted);">
+        <a href="legal/privacy-policy.html" target="_blank" style="color: var(--text-muted); text-decoration: none; margin: 0 4px;">Privacy Policy</a> &bull;
+        <a href="legal/terms-of-service.html" target="_blank" style="color: var(--text-muted); text-decoration: none; margin: 0 4px;">Terms of Service</a> &bull;
+        <a href="legal/refund-policy.html" target="_blank" style="color: var(--text-muted); text-decoration: none; margin: 0 4px;">Refund Policy</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="app-toast" class="toast">
+    <span id="toast-message">Resume saved successfully!</span>
+  </div>
+
+  <script src="skills-db.js"></script>
+  <script src="license-validator.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
